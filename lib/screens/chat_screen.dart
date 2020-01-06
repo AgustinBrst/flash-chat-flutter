@@ -19,7 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 //Implement logout functionality
               }),
         ],
-        title: Text('⚡️Chat'),
+        title: Text('⚡️Chat'), // TODO: use username as title (from route arguments)
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
