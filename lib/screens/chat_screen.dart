@@ -28,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              decoration: kMessageContainerDecoration,
+              decoration: messageContainerDecoration,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       onChanged: (value) {
                         //Do something with the user input.
                       },
-                      decoration: kMessageTextFieldDecoration,
+                      decoration: messageTextFieldDecoration,
                     ),
                   ),
                   FlatButton(
@@ -46,7 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     },
                     child: Text(
                       'Send',
-                      style: kSendButtonTextStyle,
+                      style: sendButtonTextStyle,
                     ),
                   ),
                 ],

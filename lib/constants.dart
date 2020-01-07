@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-const kSendButtonTextStyle = TextStyle(
+const sendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
 
-const kMessageTextFieldDecoration = InputDecoration(
+const messageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Type your message here...',
   border: InputBorder.none,
 );
 
-const kMessageContainerDecoration = BoxDecoration(
+const messageContainerDecoration = BoxDecoration(
   border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
   ),
