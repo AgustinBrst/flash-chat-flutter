@@ -1,5 +1,7 @@
-import 'package:flash_chat/routing/routes.dart';
 import 'package:flutter/material.dart';
+
+import '../routing/routes.dart';
+import '../widgets/button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -40,34 +42,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
+              child: Button(
+                text: 'Log in',
                 color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () => Navigator.pushNamed(context, Routes.login),
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
+                onPressed: () => Navigator.pushNamed(context, Routes.login),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
+              child: Button(
+                text: 'Register',
                 color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () => Navigator.pushNamed(context, Routes.registration),
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
+                onPressed: () => Navigator.pushNamed(context, Routes.registration),
               ),
             ),
           ],
