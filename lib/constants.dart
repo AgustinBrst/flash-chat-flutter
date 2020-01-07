@@ -19,7 +19,6 @@ const messageContainerDecoration = BoxDecoration(
 );
 
 const textFieldDecoration = InputDecoration(
-  hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.5)),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
