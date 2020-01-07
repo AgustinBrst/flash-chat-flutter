@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'routing/routes_generator.dart';
+
 import 'routing/routes.dart';
+import 'routing/routes_generator.dart';
 
 void main() => runApp(FlashChat());
 
