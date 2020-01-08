@@ -21,7 +21,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void initCurrentUser() async {
     currentUser = await authService.currentUser;
-    print(currentUser.email);
   }
 
   @override
@@ -31,9 +30,10 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                //Implement logout functionality
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () async {
+                await authService.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
