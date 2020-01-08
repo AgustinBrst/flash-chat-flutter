@@ -1,5 +1,6 @@
 import 'package:flash_chat/models/user.dart';
 import 'package:flash_chat/services/auth_service.dart';
+import 'package:flash_chat/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -11,7 +12,9 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final AuthService authService = AuthService();
+  final DatabaseService databaseService = DatabaseService();
   User currentUser;
+  String messageText = '';
 
   @override
   void initState() {
@@ -21,6 +24,19 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void initCurrentUser() async {
     currentUser = await authService.currentUser;
+  }
+
+  void setMessageText(String value) {
+    setState(() {
+      messageText = value;
+    });
+  }
+
+  void sendMessage() {
+    databaseService.sendMessage(
+      senderEmail: currentUser.email,
+      text: messageText,
+    );
   }
 
   @override
@@ -51,19 +67,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
+                      onChanged: setMessageText,
                       decoration: messageTextFieldDecoration,
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      //Implement send functionality.
-                    },
+                    onPressed: messageText.isEmpty ? null : sendMessage,
                     child: Text(
                       'Send',
-                      style: sendButtonTextStyle,
+                      style: messageText.isEmpty ? disabledSendButtonTextStyle : sendButtonTextStyle,
                     ),
                   ),
                 ],

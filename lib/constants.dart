@@ -6,6 +6,10 @@ const sendButtonTextStyle = TextStyle(
   fontSize: 18.0,
 );
 
+final disabledSendButtonTextStyle = sendButtonTextStyle.copyWith(
+  color: Colors.lightBlueAccent.withOpacity(0.5),
+);
+
 const messageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Type your message here...',
