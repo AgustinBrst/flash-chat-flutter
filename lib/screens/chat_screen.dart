@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('messages').snapshots(),
+              stream: Firestore.instance.collection('messages').orderBy('timestamp').snapshots(),
               builder: (_, asyncSnapshot) {
                 final documentSnapshots = asyncSnapshot.data.documents;
 

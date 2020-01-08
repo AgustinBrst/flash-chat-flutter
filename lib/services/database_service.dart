@@ -12,15 +12,13 @@ class Collections {
 class DatabaseService {
   final Firestore _firestore = Firestore.instance;
 
-  Map<String, dynamic> _mapFromMessage(Message message) {
-    return {
-      'senderEmail': message.senderEmail,
-      'text': message.text,
-    };
-  }
-
   Future<void> sendMessage({@required String senderEmail, @required String text}) async {
     final message = Message(senderEmail: senderEmail, text: text);
-    await _firestore.collection(Collections.messages).add(_mapFromMessage(message));
+
+    await _firestore.collection(Collections.messages).add({
+      'senderEmail': message.senderEmail,
+      'text': message.text,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 }
