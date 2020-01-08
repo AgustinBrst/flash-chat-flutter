@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../routing/routes.dart';
+import '../services/auth_service.dart';
 import '../widgets/button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +11,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthService authService = AuthService();
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,18 +36,16 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 48.0,
             ),
             TextField(
-              onChanged: (value) {
-                //Do something with the user input.
-              },
+              onChanged: (value) => email = value,
+              keyboardType: TextInputType.emailAddress,
               decoration: textFieldDecoration.copyWith(hintText: 'Enter your email'),
             ),
             SizedBox(
               height: 8.0,
             ),
             TextField(
-              onChanged: (value) {
-                //Do something with the user input.
-              },
+              onChanged: (value) => password = value,
+              obscureText: true,
               decoration: textFieldDecoration.copyWith(hintText: 'Enter your password'),
             ),
             SizedBox(
@@ -52,7 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Button(
                 text: 'Log in',
                 color: Colors.lightBlueAccent,
-                onPressed: () {},
+                onPressed: () async {
+                  final newUser = await authService.signInWithEmailAndPassword(email: email, password: password);
+                  if (newUser != null) {
+                    Navigator.pushNamed(context, Routes.chat);
+                  }
+                },
               ),
             ),
           ],
