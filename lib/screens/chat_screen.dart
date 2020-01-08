@@ -86,6 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       return MessageBubble(
                         sender: message.senderEmail,
                         text: message.text,
+                        isMine: message.senderEmail == currentUser.email,
                       );
                     },
                   );
