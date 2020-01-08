@@ -1,3 +1,5 @@
+import 'package:flash_chat/routing/routes.dart';
+import 'package:flash_chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -9,6 +11,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final AuthService authService = AuthService();
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,18 +36,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
-              onChanged: (value) {
-                //Do something with the user input.
-              },
+              onChanged: (value) => email = value,
+              keyboardType: TextInputType.emailAddress,
               decoration: textFieldDecoration.copyWith(hintText: 'Enter your email'),
             ),
             SizedBox(
               height: 8.0,
             ),
             TextField(
-              onChanged: (value) {
-                //Do something with the user input.
-              },
+              onChanged: (value) => password = value,
+              obscureText: true,
               decoration: textFieldDecoration.copyWith(hintText: 'Enter your password'),
             ),
             SizedBox(
@@ -52,7 +56,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Button(
                 text: 'Register',
                 color: Colors.blueAccent,
-                onPressed: () {},
+                onPressed: () async {
+                  final newUser = await authService.createUserWithEmailAndPassword(email: email, password: password);
+                  if (newUser != null) {
+                    Navigator.pushNamed(context, Routes.chat);
+                  }
+                },
               ),
             ),
           ],

@@ -15,8 +15,29 @@ class AuthService {
     );
   }
 
+  Future<User> get currentUser async {
+    User currentUser;
+
+    try {
+      final currentFirebaseUser = await _firebaseAuth.currentUser();
+      currentUser = _userFromFirebaseUser(currentFirebaseUser);
+    } catch (error) {
+      print(error);
+    }
+
+    return currentUser;
+  }
+
   Future<User> createUserWithEmailAndPassword({@required String email, @required String password}) async {
-    final AuthResult authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-    return _userFromFirebaseUser(authResult.user);
+    User user;
+
+    try {
+      final authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      user = _userFromFirebaseUser(authResult.user);
+    } catch (error) {
+      print(error);
+    }
+
+    return user;
   }
 }
