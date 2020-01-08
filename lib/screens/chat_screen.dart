@@ -1,3 +1,5 @@
+import 'package:flash_chat/models/user.dart';
+import 'package:flash_chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -8,6 +10,20 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final AuthService authService = AuthService();
+  User currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    initCurrentUser();
+  }
+
+  void initCurrentUser() async {
+    currentUser = await authService.currentUser;
+    print(currentUser.email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 //Implement logout functionality
               }),
         ],
-        title: Text('⚡️Chat'), // TODO: use username as title (from route arguments)
+        title: Text('⚡️Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
