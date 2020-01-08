@@ -12,6 +12,23 @@ class Collections {
 class DatabaseService {
   final Firestore _firestore = Firestore.instance;
 
+  Stream<List<Message>> get messagesStream async* {
+    final messagesCollection = _firestore.collection(Collections.messages);
+    final snapshotsStream = messagesCollection.orderBy('timestamp', descending: true).snapshots();
+
+    await for (final snapshot in snapshotsStream) {
+      List<Message> messages = [];
+      for (final document in snapshot.documents) {
+        final message = Message(
+          senderEmail: document.data['senderEmail'],
+          text: document.data['text'],
+        );
+        messages.add(message);
+      }
+      yield messages;
+    }
+  }
+
   Future<void> sendMessage({@required String senderEmail, @required String text}) async {
     final message = Message(senderEmail: senderEmail, text: text);
 

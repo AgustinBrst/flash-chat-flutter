@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flash_chat/models/message.dart';
 import 'package:flash_chat/models/user.dart';
 import 'package:flash_chat/services/auth_service.dart';
@@ -62,21 +61,28 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('messages').orderBy('timestamp').snapshots(),
-              builder: (_, asyncSnapshot) {
-                final documentSnapshots = asyncSnapshot.data.documents;
+            Expanded(
+              child: StreamBuilder<List<Message>>(
+                initialData: [],
+                stream: databaseService.messagesStream,
+                builder: (_, asyncSnapshot) {
+                  if (!asyncSnapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                    );
+                  }
 
-                List<Message> messages = [];
-                for (final document in documentSnapshots) {
-                  final message = Message(senderEmail: document.data['senderEmail'], text: document.data['text']);
-                  messages.add(message);
-                }
+                  final messages = asyncSnapshot.data;
+                  final toTextWidget = (Message message) => Text(message.text);
 
-                final toTextWidget = (Message message) => Text(message.text);
-
-                return Column(children: messages.map(toTextWidget).toList());
-              },
+                  return ListView(
+                    reverse: true,
+                    children: messages.map(toTextWidget).toList(),
+                  );
+                },
+              ),
             ),
             Container(
               decoration: messageContainerDecoration,
