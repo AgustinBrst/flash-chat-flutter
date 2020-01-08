@@ -2,6 +2,7 @@ import 'package:flash_chat/models/message.dart';
 import 'package:flash_chat/models/user.dart';
 import 'package:flash_chat/services/auth_service.dart';
 import 'package:flash_chat/services/database_service.dart';
+import 'package:flash_chat/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -75,11 +76,18 @@ class _ChatScreenState extends State<ChatScreen> {
                   }
 
                   final messages = asyncSnapshot.data;
-                  final toTextWidget = (Message message) => Text(message.text);
 
-                  return ListView(
+                  return ListView.builder(
+                    padding: EdgeInsets.all(14),
                     reverse: true,
-                    children: messages.map(toTextWidget).toList(),
+                    itemCount: messages.length,
+                    itemBuilder: (_, index) {
+                      final message = messages[index];
+                      return MessageBubble(
+                        sender: message.senderEmail,
+                        text: message.text,
+                      );
+                    },
                   );
                 },
               ),
